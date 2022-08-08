@@ -1,4 +1,4 @@
-<template v-if="expert.personalInfo">
+<template>
   <div>
     <body id="top">
       <header class="d-print-none">
@@ -7,7 +7,7 @@
             <div class="site-nav">
               <nav role="navigation">
                 <ul class="nav justify-content-center">
-                  <!-- <li class="nav-item">
+                  <li class="nav-item">
                     <a :href="expert.personalInfo.twitter" title="Twitter"
                       ><i class="fab fa-twitter"></i
                       ><span class="menu-title sr-only">Twitter</span></a
@@ -30,7 +30,7 @@
                       ><i class="fab fa-linkedin-in"></i
                       ><span class="menu-title sr-only">linkedIn</span></a
                     >
-                  </li>  -->
+                  </li> 
                 </ul>
               </nav>
             </div>
@@ -44,38 +44,37 @@
               <div class="row">
                 <div class="col-lg-4 col-md-5">
                   <div class="avatar hover-effect bg-white shadow-sm p-1">
-                    <img
-                     
+                    <img                     
                       :src="expert.personalInfo.personalPhoto"
                       width="200"
                       height="200"
                     />
                   </div>
                 </div>
-                <!-- <div class="col-lg-8 col-md-7 text-center text-md-start"> -->
-                  <!-- <h2  class="h1 mt-2" data-aos="fade-left" data-aos-delay="0">
+                <div class="col-lg-8 col-md-7 text-center text-md-start">
+                  <h2  class="h1 mt-2" data-aos="fade-left" data-aos-delay="0">
                     {{ expert.personalInfo.fullName }}
                     
-                  </h2> -->
-                <!-- <template v-if="expert.about"> -->
-                   <!-- <p
+                  </h2>
+                <template v-if="expert.about">
+                  <p
                     
                     data-aos="fade-left"
                     data-aos-delay="100"
                   >
                     {{ expert.about.currentTitle }}
-                  </p> -->
-                  <!-- <p
+                  </p>
+                  <p
                   
                     data-aos="fade-left"
                     data-aos-delay="100"
                   >
                     {{ expert.about.summary }}
                    
-                  </p> -->
-                <!-- </template> -->
+                  </p>
+                </template>
                  
-                  <!-- <div
+                  <div
                     class="d-print-none"
                     data-aos="fade-left"
                     data-aos-delay="200"
@@ -88,14 +87,14 @@
                     ><a class="btn btn-success shadow-sm mt-1" href="#contact"
                       >Hire Me</a
                     >
-                  </div> -->
-                <!-- </div> -->
+                  </div>
+                </div>
               </div>
             </div>
             <div class="about-section pt-4 px-3 px-lg-4 mt-1">
               <div class="row">
                 <div class="col-md-12">
-                  <!-- <h2 class="h3 mb-3">About Me</h2> -->
+                  <h2 class="h3 mb-3">About Me</h2>
                    
                    <h3 v-if="expert.personalInfo.fullName">  {{ expert.personalInfo.fullName }}
                         |
@@ -108,7 +107,7 @@
                   </p>
                 </div>
                 <div class="col-md-5 offset-md-1">
-                  <div class="row mt-2"> 
+                  <div class="row mt-2">
                     <div
                       v-if="expert.personalInfo.dateOfBirth"
                       class="row mt-2"
@@ -121,8 +120,8 @@
                           {{ expert.personalInfo.dateOfBirth | formatDateM }}
                         </div>
                       </div>
-                    </div> 
-                    <!-- <div v-if="expert.personalInfo.email" class="row mt-2">
+                    </div>
+                    <div v-if="expert.personalInfo.email" class="row mt-2">
                       <div class="col-sm-4">
                         <div class="pb-1">Email</div>
                       </div>
@@ -131,8 +130,8 @@
                           {{ expert.personalInfo.email }}
                         </div>
                       </div>
-                    </div> -->
-                    <!-- <div v-if="expert.personalInfo.phone" class="row mt-2">
+                    </div>
+                    <div v-if="expert.personalInfo.phone" class="row mt-2">
                       <div class="col-sm-4">
                         <div class="pb-1">Phone</div>
                       </div>
@@ -141,28 +140,28 @@
                           {{ expert.personalInfo.phone }}
                         </div>
                       </div>
-                    </div> -->
-                    <!-- <div
+                    </div>
+                    <div
                       v-if="expert.personalInfo.country.nameEn"
                       class="row mt-2"
-                    > -->
-                      <!-- <div class="col-sm-4">
+                    >
+                      <div class="col-sm-4">
                         <div v-if="expert.personalInfo.country && expert.locale==0 " class="pb-1">{{ expert.personalInfo.country.nameAr }}</div>
                         <div v-if="expert.personalInfo.country && expert.locale==1 " class="pb-1">{{ expert.personalInfo.country.nameEn }}</div>
-                      </div> -->
-                      <!-- <div class="col-sm-8">
+                      </div>
+                      <div class="col-sm-8">
                         <div class="pb-1 text-secondary">
                           {{ expert.personalInfo.country }}
                           {{ expert.personalInfo.country.nameEn }}
                         </div>
-                      </div> -->
-                    <!-- </div> -->
-                  <!-- </div> -->
-                <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- <hr  v-if="expert.experiences" />
+            <hr  v-if="expert.experiences" />
             <div class="work-experience-section px-3 px-lg-4">
               <h2 v-if="expert.experiences" class="h3 mb-4">Work Experience</h2>
               <div class="timeline">
@@ -270,7 +269,7 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -283,28 +282,33 @@ import axios from "axios";
 export default {
   data() {
     return {
-      expert: {},
+      expert: {
+        personalInfo: {
+          country: {}
+        }
+      },
       experts:{},
       info:{}
     };
   },
-  computed: {
+  mounted: {
    getrequest: function(){
     return this.experts.filter((data)=>{
       return data.requestId.match(this.info)
     });
     }
   },
-  created() {
+
+  created () {
     var currentUrl = window.location.pathname;
     localStorage.setItem("url", currentUrl);
   
-    let id = localStorage.cv;
+    let id = 116;
     let url = localStorage.url;
     // let request = localStorage.request;
 
-       if (url=="/en/") {
-          axios
+    if (url=="/en/") {
+      axios
       .get("https://qalatdb.simulalab.org/api/qalat-cvs/0")
       .then(response => {
         if (response.status != 200) {
@@ -313,30 +317,30 @@ export default {
           this.experts = response.data;
         }  
       });
-       } else {
-           axios
-      .get("https://qalatdb.simulalab.org/api/qalat-cvs/1")
-      .then(response => {
-        if (response.status != 200) {
-          console.log(response.status);
-        } else {
-          this.experts = response.data;
-        }
-      });    
-       }
+    } else {
        axios
-      .get("https://qalatdb.simulalab.org/api/cv-by-id/" + id)
-            .then(response => {
-        if (response.status != 200) {
-          console.log(response.status);
-        } else {
-          this.expert = response.data;
-        }
-      });
-      
-  
+        .get("https://qalatdb.simulalab.org/api/qalat-cvs/1")
+        .then(response => {
+          if (response.status != 200) {
+            console.log(response.status);
+          } else {
+            this.experts = response.data;
+          }
+        });    
+    }
 
-   
+    if (id) {
+      axios
+        .get("https://qalatdb.simulalab.org/api/cv-by-id/" + id)
+              .then(response => {
+          if (response.status != 200) {
+            console.log(response.status);
+          } else {
+            this.expert = response.data;
+          }
+        });
+    }
+
   },
   
 
@@ -345,295 +349,295 @@ export default {
 </script>
 
 <style scoped>
-html {
-  scroll-behavior: smooth;
-}
+  html {
+    scroll-behavior: smooth;
+  }
 
-.site-title {
-  font-size: 1.25rem;
-  line-height: 2.5rem;
-}
-
-.nav-link {
-  padding: 0;
-  font-size: 1.25rem;
-  line-height: 2.5rem;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.nav-link:hover,
-.nav-link:focus,
-.active .nav-link {
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.nav-item + .nav-item {
-  margin-left: 1rem;
-}
-
-.cover {
-  border-radius: 10px;
-}
-
-/* .cover-bg {
-  background-color: #4a89dc;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.12'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  border-radius: 10px 10px 0 0;
-} */
-
-.avatar {
-  max-width: 216px;
-  max-height: 216px;
-  margin-top: 20px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-.nav {
-  display: flex;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-}
-
-.avatar img {
-  /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
-}
-
-footer a:not(.nav-link) {
-  color: inherit;
-  border-bottom: 1px dashed;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-@media (min-width: 48em) {
   .site-title {
-    float: left;
+    font-size: 1.25rem;
+    line-height: 2.5rem;
   }
-  .site-nav {
-    float: right;
-  }
-  .avatar {
 
-    margin-left: 0;
-  }
-}
-@media print {
-  body {
-    background-color: #fff;
-  }
-  .container {
-    width: auto;
-    max-width: 100%;
+  .nav-link {
     padding: 0;
+    font-size: 1.25rem;
+    line-height: 2.5rem;
+    color: rgba(0, 0, 0, 0.5);
   }
-  .cover,
-  .cover-bg {
-    border-radius: 0;
+
+  .nav-link:hover,
+  .nav-link:focus,
+  .active .nav-link {
+    color: rgba(0, 0, 0, 0.8);
   }
-  .cover.shadow-lg {
-    box-shadow: none !important;
+
+  .nav-item + .nav-item {
+    margin-left: 1rem;
   }
-  .cover-bg {
-    padding: 5rem !important;
-    padding-bottom: 10px !important;
+
+  .cover {
+    border-radius: 10px;
   }
+
+  /* .cover-bg {
+    background-color: #4a89dc;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.12'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    border-radius: 10px 10px 0 0;
+  } */
+
   .avatar {
-    margin-top: -10px;
+    max-width: 216px;
+    max-height: 216px;
+    margin-top: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .about-section {
-    padding: 6.5rem 5rem 2rem !important;
+  .nav {
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
   }
-  .skills-section,
-  .work-experience-section,
-  .education-section,
-  .contant-section {
-    padding: 1.5rem 5rem 2rem !important;
+
+  .avatar img {
+    /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
   }
-  .page-break {
-    padding-top: 5rem;
-    page-break-before: always;
+
+  footer a:not(.nav-link) {
+    color: inherit;
+    border-bottom: 1px dashed;
+    text-decoration: none;
+    cursor: pointer;
   }
-}
-/* Buttons */
-/* Inputs */
-/* Timeline custom component */
-.timeline {
-  border-left: 2px solid #e6e9ed;
-  padding: 1rem 0;
-}
 
-.timeline-card {
-  position: relative;
-  margin-left: 31px;
-  border-left: 2px solid;
-  margin-bottom: 2rem;
-}
+  @media (min-width: 48em) {
+    .site-title {
+      float: left;
+    }
+    .site-nav {
+      float: right;
+    }
+    .avatar {
 
-.timeline-card:last-child {
-  margin-bottom: 1rem;
-}
+      margin-left: 0;
+    }
+  }
+  @media print {
+    body {
+      background-color: #fff;
+    }
+    .container {
+      width: auto;
+      max-width: 100%;
+      padding: 0;
+    }
+    .cover,
+    .cover-bg {
+      border-radius: 0;
+    }
+    .cover.shadow-lg {
+      box-shadow: none !important;
+    }
+    .cover-bg {
+      padding: 5rem !important;
+      padding-bottom: 10px !important;
+    }
+    .avatar {
+      margin-top: -10px;
+    }
+    .about-section {
+      padding: 6.5rem 5rem 2rem !important;
+    }
+    .skills-section,
+    .work-experience-section,
+    .education-section,
+    .contant-section {
+      padding: 1.5rem 5rem 2rem !important;
+    }
+    .page-break {
+      padding-top: 5rem;
+      page-break-before: always;
+    }
+  }
+  /* Buttons */
+  /* Inputs */
+  /* Timeline custom component */
+  .timeline {
+    border-left: 2px solid #e6e9ed;
+    padding: 1rem 0;
+  }
 
-.timeline-card:before {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  background-color: #fff;
-  border-radius: 10px;
-  width: 12px;
-  height: 12px;
-  top: 20px;
-  left: -41px;
-  border: 2px solid;
-  z-index: 2;
-}
+  .timeline-card {
+    position: relative;
+    margin-left: 31px;
+    border-left: 2px solid;
+    margin-bottom: 2rem;
+  }
 
-.timeline-card:after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  background-color: currentColor;
-  width: 29px;
-  height: 2px;
-  top: 25px;
-  left: -29px;
-  z-index: 1;
-}
+  .timeline-card:last-child {
+    margin-bottom: 1rem;
+  }
 
-.timeline-card-primary {
-  border-left-color: #4a89dc;
-}
+  .timeline-card:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 12px;
+    height: 12px;
+    top: 20px;
+    left: -41px;
+    border: 2px solid;
+    z-index: 2;
+  }
 
-.timeline-card-primary:before {
-  border-color: #4a89dc;
-}
+  .timeline-card:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    background-color: currentColor;
+    width: 29px;
+    height: 2px;
+    top: 25px;
+    left: -29px;
+    z-index: 1;
+  }
 
-.timeline-card-primary:after {
-  background-color: #4a89dc;
-}
+  .timeline-card-primary {
+    border-left-color: #4a89dc;
+  }
 
-.timeline-card-success {
-  border-left-color: #37bc9b;
-}
+  .timeline-card-primary:before {
+    border-color: #4a89dc;
+  }
 
-.timeline-card-success:before {
-  border-color: #37bc9b;
-}
+  .timeline-card-primary:after {
+    background-color: #4a89dc;
+  }
 
-.timeline-card-success:after {
-  background-color: #37bc9b;
-}
+  .timeline-card-success {
+    border-left-color: #37bc9b;
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  .timeline-card-success:before {
+    border-color: #37bc9b;
+  }
 
-.site-title {
-  font-size: 1.25rem;
-  line-height: 2.5rem;
-}
+  .timeline-card-success:after {
+    background-color: #37bc9b;
+  }
 
-.nav-link {
-  padding: 0;
-  font-size: 1.25rem;
-  line-height: 2.5rem;
-  color: rgba(0, 0, 0, 0.5);
-}
+  html {
+    scroll-behavior: smooth;
+  }
 
-.nav-link:hover,
-.nav-link:focus,
-.active .nav-link {
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.nav-item + .nav-item {
-  margin-left: 1rem;
-}
-
-.cover {
-  border-radius: 10px;
-}
-
-/* .cover-bg {
-  background-color: #4a89dc;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.12'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  border-radius: 10px 10px 0 0;
-} */
-
-.avatar {
-  max-width: 216px;
-  max-height: 216px;
-  margin-top: 20px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.avatar img {
-  /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
-}
-
-footer a:not(.nav-link) {
-  color: inherit;
-  border-bottom: 1px dashed;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-@media (min-width: 48em) {
   .site-title {
-    float: left;
+    font-size: 1.25rem;
+    line-height: 2.5rem;
   }
-  .site-nav {
-    float: right;
-  }
-  .avatar {
-    
-    margin-left: 0;
-  }
-}
 
-@media print {
-  body {
-    background-color: #fff;
-  }
-  .container {
-    width: auto;
-    max-width: 100%;
+  .nav-link {
     padding: 0;
+    font-size: 1.25rem;
+    line-height: 2.5rem;
+    color: rgba(0, 0, 0, 0.5);
   }
-  .cover,
-  .cover-bg {
-    border-radius: 0;
+
+  .nav-link:hover,
+  .nav-link:focus,
+  .active .nav-link {
+    color: rgba(0, 0, 0, 0.8);
   }
-  .cover.shadow-lg {
-    box-shadow: none !important;
+
+  .nav-item + .nav-item {
+    margin-left: 1rem;
   }
-  .cover-bg {
-    padding: 5rem !important;
-    padding-bottom: 10px !important;
+
+  .cover {
+    border-radius: 10px;
   }
+
+  /* .cover-bg {
+    background-color: #4a89dc;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.12'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    border-radius: 10px 10px 0 0;
+  } */
+
   .avatar {
-    margin-top: -10px;
+    max-width: 216px;
+    max-height: 216px;
+    margin-top: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .about-section {
-    padding: 6.5rem 5rem 2rem !important;
+
+  .avatar img {
+    /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
   }
-  .skills-section,
-  .work-experience-section,
-  .education-section,
-  .contant-section {
-    padding: 1.5rem 5rem 2rem !important;
+
+  footer a:not(.nav-link) {
+    color: inherit;
+    border-bottom: 1px dashed;
+    text-decoration: none;
+    cursor: pointer;
   }
-  .page-break {
-    padding-top: 5rem;
-    page-break-before: always;
+
+  @media (min-width: 48em) {
+    .site-title {
+      float: left;
+    }
+    .site-nav {
+      float: right;
+    }
+    .avatar {
+      
+      margin-left: 0;
+    }
   }
-}
-.card-body {
-  margin-left: 20px;
-}
+
+  @media print {
+    body {
+      background-color: #fff;
+    }
+    .container {
+      width: auto;
+      max-width: 100%;
+      padding: 0;
+    }
+    .cover,
+    .cover-bg {
+      border-radius: 0;
+    }
+    .cover.shadow-lg {
+      box-shadow: none !important;
+    }
+    .cover-bg {
+      padding: 5rem !important;
+      padding-bottom: 10px !important;
+    }
+    .avatar {
+      margin-top: -10px;
+    }
+    .about-section {
+      padding: 6.5rem 5rem 2rem !important;
+    }
+    .skills-section,
+    .work-experience-section,
+    .education-section,
+    .contant-section {
+      padding: 1.5rem 5rem 2rem !important;
+    }
+    .page-break {
+      padding-top: 5rem;
+      page-break-before: always;
+    }
+  }
+  .card-body {
+    margin-left: 20px;
+  }
 </style>
