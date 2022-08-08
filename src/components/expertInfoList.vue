@@ -1,31 +1,58 @@
 <template>
-  <expertInfoList v-if="!this.$route.params.id" />
-  <expertInfoDetails v-else /> 
+  <div>
+    <ul>
+      <li v-for="e in experts" :key="e.id">
+        <img :src="e.personalInfo.personalPhoto" style="width:50px; height: 50px;" />
+        <router-link :to="{ name: 'experts.details', params: { id: e.id }}">
+        {{ e.personalInfo.fullName }}    
+        </router-link>
+        <hr>
+      </li>
+    </ul>	
+  </div>
 </template>
 
 <script>
-
-import expertInfoList from '@/components/expertInfoList.vue'
-import expertInfoDetails from '@/components/expertInfoDetails.vue'
-
+import axios from "axios";
 export default {
   data() {
     return {
-      expertId: null
+      experts:{}
     };
   },
-
-  components: {
-    'expertInfoList': expertInfoList,    
-    'expertInfoDetails': expertInfoDetails,
-  },  
-
+  
   mounted: {
-   // do something
+	// do something
   },
 
   created () {
-    // this.expertId = this.$route.params.id;
+    var currentUrl = window.location.pathname;
+    localStorage.setItem("url", currentUrl);
+
+    let url = localStorage.url;
+
+    if (url=="/en/") {
+      axios
+      .get("https://qalatdb.simulalab.org/api/qalat-cvs/0")
+      .then(response => {
+        if (response.status != 200) {
+          console.log(response.status);
+        } else {
+          this.experts = response.data;
+        }  
+      });
+    } else {
+       axios
+        .get("https://qalatdb.simulalab.org/api/qalat-cvs/1")
+        .then(response => {
+          if (response.status != 200) {
+            console.log(response.status);
+          } else {
+            this.experts = response.data;
+          }
+        });    
+    }
+
   },
   
 
