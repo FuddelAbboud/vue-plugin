@@ -34,7 +34,6 @@ Vue.component('BIconArrowUp', BIconArrowUp)
 Vue.component('BIconArrowDown', BIconArrowDown)
 
 new Vue({
-
   render: h => h(App),
 }).$mount('#app')
 
