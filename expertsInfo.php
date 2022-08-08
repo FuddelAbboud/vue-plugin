@@ -25,11 +25,11 @@
  function func_experts_info(){
      wp_enqueue_script('app_experts_info' );
      wp_enqueue_script('chunk_experts_info');
-     wp_enqueue_script('vue-router');
+     //wp_enqueue_script('vue-router');
 
      wp_enqueue_script('app_experts_bootstrap');
-     wp_enqueue_script('app_experts_aos');
-     wp_enqueue_script('app_experts_main');
+     //wp_enqueue_script('app_experts_aos');
+     //wp_enqueue_script('app_experts_main');
 
      wp_enqueue_style('app_expertStyle_fontAwesome');
      wp_enqueue_style('app_expertStyle_bootstrap');
